@@ -7,6 +7,7 @@
 (fact "New account generation"
   (logic/new-account customer-id "Tim Maia") => (just {:id          uuid?
                                                        :name        "Tim Maia"
+                                                       :tags        ["savings-beta" "verified"]
                                                        :customer-id customer-id}))
 
 
