@@ -1,7 +1,6 @@
-(ns basic-microservice-example.logic
-  (:import [java.util UUID]))
+(ns basic-microservice-example.logic)
 
 (defn new-account [customer-id customer-name]
-  {:id          (UUID/randomUUID)
+  {:id          (java.util.UUID/randomUUID)
    :name        customer-name
    :customer-id customer-id})
