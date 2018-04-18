@@ -82,5 +82,4 @@
     (:created-account *world*) => (match {:account (equals {:customer-id uuid?
                                                             :id          uuid?
                                                             :name        "bob"})}))
-
-  )
+)
