@@ -8,8 +8,10 @@
 
 (fact "Sketching account creation"
   (controller/create-account! customer-id ..storage.. ..http..) => (just {:id          uuid?
-                                                                          :name        "Abel"
+                                                                          :name        "Tom Zé"
+                                                                          :tags        (just ["verified" "savings-beta"]
+                                                                                             :in-any-order)
                                                                           :customer-id customer-id})
   (provided
-    (controller/get-customer customer-id ..http..) => {:customer-name "Abel"}
-    (db.saving-account/add-account! (contains {:name "Abel"}) ..storage..) => irrelevant))
+    (controller/get-customer customer-id ..http..) => {:customer-name "Tom Zé"}
+    (db.saving-account/add-account! (contains {:name "Tom Zé"}) ..storage..) => irrelevant))

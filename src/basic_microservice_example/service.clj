@@ -6,6 +6,12 @@
             [basic-microservice-example.interceptors.error-info :as error-info]
             [ring.util.response :as ring-resp]))
 
+(defn create-account
+  [{{:keys [customer-id]} :edn-params
+    {:keys [http storage]} :components}]
+  (let [account (controller/create-account! customer-id storage http)]
+    (ring-resp/response {:account account})))
+
 (defn customer->account
   [{{:keys [customer-id]} :path-params
     {:keys [storage]} :components}]
@@ -27,12 +33,6 @@
     {:keys [storage]} :components}]
   (ring-resp/response
     (controller/delete-account! (adapters/str->uuid account-id) storage)))
-
-(defn create-account
-  [{{:keys [customer-id]} :edn-params
-    {:keys [http storage]} :components}]
-  (let [account (controller/create-account! customer-id storage http)]
-    (ring-resp/response {:account account})))
 
 (def common-interceptors
   [(body-params/body-params)
