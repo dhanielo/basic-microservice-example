@@ -34,10 +34,6 @@
            :created-account resp-body
            :account-id      (-> resp-body :account :id))))
 
-(defn delete-account! [{:keys [account-id] :as world}]
-  (POST (str "/account/remove/" account-id) 200)
-  world)
-
 (defn lookup-missing-account
   "Assert that no account is found for the current customer ID by hitting the
    /account/from-customer/:customer-id endpoint"
@@ -70,16 +66,7 @@
                                                                     :in-any-order)
                                                  :name        "bob"})}))
 
-  delete-account!
-
-  lookup-missing-account
-
-  (fact "After deleting the savings account it can no longer be found"
-    (:account-lookup *world*) => {}))
-
-(comment
-  (fact "(matcher-combinators) There should now be a savings account for Bob"
+  #_(fact "(matcher-combinators) There should now be a savings account for Bob"
     (:created-account *world*) => (match {:account (equals {:customer-id uuid?
                                                             :id          uuid?
-                                                            :name        "bob"})}))
-)
+                                                            :name        "bob"})})))
