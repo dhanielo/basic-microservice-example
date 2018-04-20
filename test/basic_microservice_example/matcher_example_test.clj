@@ -24,8 +24,3 @@
   {:a {:b {:c 1}}} => (just {:a (just {:b (just {:c odd?})})})
 
   {:a {:b {:c 1}}} => (match (equals {:a (equals {:b (equals {:c odd?})})})))
-
-
-(deftest works-with-clojure-test
-  (is (match? (equals {:a (equals {:b (equals {:c odd?})})})
-              {:a {:b {:c 1}}})))

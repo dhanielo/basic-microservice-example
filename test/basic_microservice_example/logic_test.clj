@@ -5,10 +5,11 @@
 (def customer-id (java.util.UUID/randomUUID))
 
 (fact "New account generation"
-  (logic/new-account customer-id "Tim Maia") => (just {:id          uuid?
-                                                       :name        "Tim Maia"
-                                                       :tags        ["savings-beta" "verified"]
-                                                       :customer-id customer-id}))
+  (logic/new-account customer-id "bob") => (just {:id          uuid?
+                                                  :name        "not-bob"
+                                                  :tags        (just ["verified" "savings-beta"]
+                                                                     :in-any-order)
+                                                  :customer-id customer-id}))
 
 
 

@@ -42,7 +42,7 @@
         resp-body (:body (GET url 400))]
     (assoc world :account-lookup resp-body)))
 
-(flow "create savings account, look it up, and close it"
+(flow "creation of a savings account"
   init!
 
   ;; create a customer ID
@@ -58,15 +58,9 @@
   create-account!
 
   (fact "There should now be a savings account for Bob"
-    (:created-account *world*) => (contains
-                                    {:account (just
-                                                {:customer-id uuid?
-                                                 :id          uuid?
-                                                 :tags        (just ["verified" string?]
-                                                                    :in-any-order)
-                                                 :name        "bob"})}))
-
-  #_(fact "(matcher-combinators) There should now be a savings account for Bob"
-    (:created-account *world*) => (match {:account (equals {:customer-id uuid?
-                                                            :id          uuid?
-                                                            :name        "bob"})})))
+    (:created-account *world*)
+    => (match {:account (equals {:customer-id uuid?
+                                 :tags        (in-any-order
+                                                ["verified" string?])
+                                 :id          uuid?
+                                 :name        "not-bob"})})))
